@@ -5,7 +5,7 @@ let btn = document.getElementById('btnCalcula');
 function calcula() {
     let valor = Number(document.getElementById('valor').value);
     let taxa = Number(document.getElementById('taxa').value);
-    taxa /= 100.0;
+    taxa = taxa / 100.0;
     let parcela = Number(document.getElementById('parcela').value);
 
     let corpo = document.getElementById('corpo-tabela');
@@ -21,7 +21,7 @@ function calcula() {
         for (let i = 1; i <= parcela; i++) {
             let juros = valor * taxa;
             let parcela = juros + amortizacao;
-            valor += amortizacao;
+            valor -= amortizacao;
             corpo.innerHTML += `<tr>
                                     <th scope="row">${i}</th>
                                     <td>${parcela}</td>
