@@ -15,24 +15,39 @@ function calcula() {
         console.log(select.value)
     });
 
+    corpo.innerHTML = '';
+
     if (select.value == 'sac') {
         const amortizacao = valor / parcela;
 
         for (let i = 1; i <= parcela; i++) {
             let juros = valor * taxa;
-            let parcela = juros + amortizacao;
+            let pmt = juros + amortizacao;
             valor -= amortizacao;
             corpo.innerHTML += `<tr>
                                     <th scope="row">${i}</th>
-                                    <td>${parcela}</td>
-                                    <td>${juros}</td>
-                                    <td>${amortizacao}</td>
-                                    <td>${valor}</td>
+                                    <td>R$${pmt.toFixed(2)}</td>
+                                    <td>R$${juros.toFixed(2)}</td>
+                                    <td>R$${amortizacao.toFixed(2)}</td>
+                                    <td>R$${valor.toFixed(2)}</td>
                                 </tr>`
         }
     }
     else {
-        alert('Sistema PRICE');
+        const pmt = (valor * taxa * Math.pow(1 + taxa, parcela)) / (Math.pow(1 + taxa, parcela) - 1);
+
+        for (let i = 1; i <= parcela; i++) {
+            let juros = valor * taxa;
+            let amortizacao = pmt - juros;
+            valor -= amortizacao;
+            corpo.innerHTML += `<tr>
+                                    <th scope="row">${i}</th>
+                                    <td>R$${pmt.toFixed(2)}</td>
+                                    <td>R$${juros.toFixed(2)}</td>
+                                    <td>R$${amortizacao.toFixed(2)}</td>
+                                    <td>R$${valor.toFixed(2)}</td>
+                                </tr>`
+        }
     }
 
 }
